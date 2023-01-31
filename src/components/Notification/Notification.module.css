@@ -1,0 +1,13 @@
+.container {
+  text-align: center;
+  margin-top: 10vh;
+}
+
+.message {
+  user-select: none;
+  text-transform: uppercase;
+  font-weight: 100;
+  font-size: 24px;
+  color: rgba(246, 214, 253, 0.5);
+  letter-spacing: 0.1em;
+}

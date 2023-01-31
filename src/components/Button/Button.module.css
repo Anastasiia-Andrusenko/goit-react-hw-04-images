@@ -1,0 +1,57 @@
+.button {
+  /* position: fixed;
+  bottom: 2vh; */
+  margin: 0 auto 18px auto;
+  left: calc(50% - (150px / 2));
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  width: 150px;
+  height: 50px;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(42, 45, 54);
+  background-image: linear-gradient(315deg, #970037d9 0%, #0b7b7cb1 74%);
+  background-size: 200% 100%;
+  background-position: left;
+  background-repeat: no-repeat;
+  transition: 500ms;
+  border-radius: 24px;
+}
+
+.button:before {
+  content: 'Load more';
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+  font-family: 'Roboto Mono', monospace;
+  border-radius: 20px;
+  /* position: absolute; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 40px;
+  background-color: rgb(42, 45, 54);
+  background-image: linear-gradient(315deg, #1b4045 0%, #292f42 74%);
+  transition: all 300ms ease-out;
+}
+
+.button:hover {
+  background-position: right;
+}
+
+.button:hover:before {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.button:focus {
+  outline: none;
+}

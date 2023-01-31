@@ -1,0 +1,44 @@
+.overlay {
+  position: fixed;
+  z-index: 1150;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(37, 28, 24, 0.7);
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 600px;
+  min-height: 340px;
+  width: fit-content;
+  background-color: rgb(184, 169, 199);
+  border-radius: 10px;
+  overflow: clip;
+  -webkit-box-shadow: 0px 10px 50px -7px rgba(203, 128, 255, 0.8);
+  -moz-box-shadow: 0px 10px 50px -7px rgba(203, 128, 255, 0.8);
+  box-shadow: 0px 10px 50px -7px rgba(203, 128, 255, 0.8);
+}
+
+.icon {
+  cursor: pointer;
+  position: absolute;
+  z-index: 1200;
+  top: 5vh;
+  right: 5vw;
+  width: 30px;
+  height: 30px;
+  transition: fill 250ms linear;
+}
+
+.icon:hover {
+  fill: rgb(255, 0, 119);
+}
+/* 
+.img {
+  width: 60vw;
+} */
