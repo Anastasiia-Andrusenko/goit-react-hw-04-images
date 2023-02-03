@@ -64,17 +64,6 @@ export class App  extends Component {
     }));
   };
 
-  // fetchImgMoreImg = () => {
-  //   const { keyWord, page } = this.state;
-
-  //   fetchImg(keyWord, page)
-  //     .then(response => {
-  //       this.setState(prevState => ({
-  //         imgArray: [...prevState.imgArray, ...response.hits],
-  //       }))
-  //     })
-  // };
-
   onClose = () => {
     this.setState({ largeImage: '' })
   }
