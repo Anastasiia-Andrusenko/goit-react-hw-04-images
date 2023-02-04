@@ -1,5 +1,5 @@
 
-import { Component } from "react";
+import { useState, useEffect } from "react";
 
 import ImageGallery from "./ImageGallery/ImageGallery";
 import Searchbar from "./Searchbar/Searchbar";
@@ -13,72 +13,43 @@ import fetchImg from "../api/fetch";
 var Scroll = require('react-scroll');
 var scroll = Scroll.animateScroll;
 
+const App = () => {
+  const [imgArray, setImgArray] = useState([]);
+  const [largeImage, setLargeImage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [keyWord, setKeyWord] = useState('');
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    if (!keyWord) {
+      return;
+    };
+    setIsLoading(true);
+    fetchImg(keyWord, page).then(response => {
+      setImgArray(prevImgArray => [...prevImgArray, ...response.hits])
+      }).finally(() => setIsLoading(false));
+  }, [keyWord, page]); 
 
 
-export class App  extends Component {
-  state = {
-    imgArray: [],
-    largeImage: "",
-    isLoading: false,
-    keyWord: '',
-    page: 1,
-  };
-
-
-  componentDidUpdate(prevProps, prevState) {
-    const prevKeyWord = prevState.keyWord;
-    const currentKeyWord = this.state.keyWord;
-    const prevPage = prevState.page;
-    const currentPage = this.state.page;
-
-    if (prevKeyWord !== currentKeyWord || prevPage !== currentPage) {
-      const { keyWord, page } = this.state;
-      this.setState({ isLoading: true });
-
-      fetchImg(keyWord, page).then(response => {
-        console.log(response.hits);
-
-        if (prevKeyWord !== currentKeyWord) {
-          this.setState({imgArray: response.hits})
-        } else {
-          this.setState({ imgArray: [ ...prevState.imgArray, ...response.hits]});
-        }
-      }).finally(() => this.setState({isLoading: false}));
-    }
-
-  }
-
-  handleFormSubmit = value => {
+  const handleFormSubmit = value => {
     // console.log(value);
-    this.setState({ keyWord: value })
+    setKeyWord(value);
     scroll.scrollToTop();
-  }
-
-  onImgClick = (imgURL) => {
-    this.setState({ largeImage: imgURL });
   };
-
-  loadMoreBtn = () => {
-    this.setState(prevState => ({
-      page: prevState.page + 1,
-    }));
-  };
-
-  onClose = () => {
-    this.setState({ largeImage: '' })
-  }
-
   
-  render() {
-    const { isLoading, imgArray, largeImage, keyWord } = this.state;
+  const onImgClick = imgURL => {setLargeImage(imgURL)};  
 
-    return <>
-      <Searchbar onSubmit={this.handleFormSubmit} />
-      {isLoading &&  <Loader/>}
-      {imgArray.length > 0 ? <ImageGallery imgArray={imgArray} onClick={this.onImgClick}/> : <Notification message='enter a keyword to start searching'/>} 
-      {largeImage.length > 0 && <Modal url={largeImage} onClose={this.onClose} alt={keyWord}></Modal>}
-      {imgArray.length > 0 && <Button loadMoreBtn={this.loadMoreBtn}>Load more</Button>}
-    </>
-  }
+  const loadMoreBtn = () => {setPage(prevPage => (prevPage + 1))};
+  
+  const onClose = () => { setLargeImage('') };
+
+  return <>
+    <Searchbar onSubmit={handleFormSubmit} />
+    {isLoading &&  <Loader/>}
+    {imgArray.length > 0 ? <ImageGallery imgArray={imgArray} onClick={onImgClick}/> : <Notification message='enter a keyword to start searching'/>} 
+    {largeImage.length > 0 && <Modal url={largeImage} onClose={onClose} alt={keyWord}></Modal>}
+    {imgArray.length > 0 && <Button loadMoreBtn={loadMoreBtn}>Load more</Button>}
+  </>
 }
 
+export default App;
