@@ -20,14 +20,25 @@ const App = () => {
   const [keyWord, setKeyWord] = useState('');
   const [page, setPage] = useState(1);
 
+
   useEffect(() => {
     if (!keyWord) {
       return;
     };
+
     setIsLoading(true);
     fetchImg(keyWord, page).then(response => {
+      if (!response.hits.length === 0) {
+        window.alert('No matches. Enter a valid value');
+        return;
+      };
+      // Не розумію, як мені зробити так, щоб коли пошук новий, то щоб ImgArray очищався? 
+      // раніше я порівнювала старе і нове значення keyWord і в залежності змінилося воно чи ні, то очищала галерею.
+      // А якщо змінювався пейдж, то я навпаки розпилювала старий масив + новий response. 
+      // А тепер не розумію як це перевірити
       setImgArray(prevImgArray => [...prevImgArray, ...response.hits])
-      }).finally(() => setIsLoading(false));
+    }).finally(() => setIsLoading(false));
+    // Ще питання, чи потрібно відловлювати помилку фетча? якщо так, то де, як? 
   }, [keyWord, page]); 
 
 
