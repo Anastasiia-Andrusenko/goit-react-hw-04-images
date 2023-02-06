@@ -14,8 +14,9 @@ const Searchbar = ({ onSubmit }) => {
       return;
     }
     onSubmit(searchValue);
-    setSearchValue('');
+    // setSearchValue('');
   }
+
 
   return <header className={css.search_bar}>
    <form className={css.form} onSubmit={handleSubmit}>

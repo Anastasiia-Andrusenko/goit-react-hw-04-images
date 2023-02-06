@@ -37,15 +37,19 @@ const App = () => {
       // А якщо змінювався пейдж, то я навпаки розпилювала старий масив + новий response. 
       // А тепер не розумію як це перевірити
       setImgArray(prevImgArray => [...prevImgArray, ...response.hits])
-    }).finally(() => setIsLoading(false));
+    }).catch((err) => console.log(err.message))
+      .finally(() => setIsLoading(false));
     // Ще питання, чи потрібно відловлювати помилку фетча? якщо так, то де, як? 
   }, [keyWord, page]); 
 
 
   const handleFormSubmit = value => {
-    // console.log(value);
-    setKeyWord(value);
-    scroll.scrollToTop();
+    if (value !== keyWord) {
+      setPage(1);
+      setKeyWord(value);
+      setImgArray('')
+      scroll.scrollToTop();
+    }
   };
   
   const onImgClick = imgURL => {setLargeImage(imgURL)};  

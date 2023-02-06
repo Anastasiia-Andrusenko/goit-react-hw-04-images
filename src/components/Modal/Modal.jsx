@@ -8,17 +8,16 @@ import css from '../Modal/Modal.module.css';
 
 
 const modalRoot = document.querySelector('#modal-root')
+const htmlRef = document.getElementById('html');
+
 
 const Modal = ({ url, onClose, alt }) => {
   
   useEffect(() => {
     window.addEventListener('keydown', handleClose);
-    //  Тут не спрацьовує document.style.overflow, чи я не там пишу ?
-    //  Точніше видає помилку
-    //  Cannot set properties of undefined (setting 'overflow')
-    //  коли окремо в консолі пишу, то все працює. 
-    // 
-    // document.style.overflow = "hidden";
+    // console.log(htmlRef);
+    htmlRef.style.overflow = "hidden";
+    return () => htmlRef.style.overflow = "unset";
   })
   
   const handleClose = evt => {
