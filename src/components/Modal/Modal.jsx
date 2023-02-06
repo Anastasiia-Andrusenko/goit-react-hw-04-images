@@ -17,7 +17,9 @@ const Modal = ({ url, onClose, alt }) => {
     window.addEventListener('keydown', handleClose);
     // console.log(htmlRef);
     htmlRef.style.overflow = "hidden";
-    return () => htmlRef.style.overflow = "unset";
+    return () => {
+      htmlRef.style.overflow = "unset";
+      window.removeEventListener('keydown', handleClose);}
   })
   
   const handleClose = evt => {
